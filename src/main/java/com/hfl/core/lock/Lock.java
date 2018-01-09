@@ -10,8 +10,11 @@ import java.util.concurrent.TimeUnit;
 public interface Lock {
 
     default void lock() {
-        String currentThread = Thread.currentThread().getName();
-        lock(currentThread, 60, TimeUnit.SECONDS);
+        lock("gload", 60, TimeUnit.SECONDS);
+    }
+
+    default void lock(String lockName) {
+        lock(lockName, 60, TimeUnit.SECONDS);
     }
 
     void lock(String lockName, int time, TimeUnit timeUnit);
@@ -21,6 +24,10 @@ public interface Lock {
     boolean tryLock();
 
     boolean tryLock(long time, TimeUnit unit);
+
+    default void unlock() {
+        unlock("gload");
+    }
 
     void unlock(String lockName);
 

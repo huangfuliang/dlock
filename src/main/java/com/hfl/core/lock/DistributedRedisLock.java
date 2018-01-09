@@ -17,6 +17,7 @@ public class DistributedRedisLock implements Lock{
 
     @Override
     public void lock(String lockName, int time, TimeUnit timeUnit) {
+        System.out.println(lockName);
         String key = LOCK_TITLE + lockName;
         RLock rLock = redissonClient.getLock(key);
         rLock.lock(2, TimeUnit.MINUTES);
